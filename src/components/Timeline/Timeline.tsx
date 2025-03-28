@@ -14,9 +14,9 @@ const Timeline: React.FC<Props> = ({videoRef, video}) => {
 	const [progress, setProgress] = React.useState(0);
 	const [cropStart, setCropStart] = React.useState<number>(0);
 	const [cropEnd, setCropEnd] = React.useState<number>(0);
-	useCropPlayback(videoRef, cropStart, cropEnd);
 	const thumbnails = useExtractThumbnails(video, 5);
 	const containerRef = React.useRef<HTMLDivElement>(null);
+	useCropPlayback(videoRef, cropStart, cropEnd);
 
 	React.useEffect(() => {
 		const video = videoRef.current;

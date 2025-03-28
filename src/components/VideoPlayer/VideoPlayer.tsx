@@ -35,7 +35,7 @@ const VideoPlayer: React.FC<Props> = () => {
 			/>
 			{!videoUrl && <div className={styles.placeholderScreen}>Select a video to play</div>}
 		</div>
-		<PlayerControls videoRef={videoRef}/>
+		<PlayerControls key={videoUrl} videoRef={videoRef}/>
 		{videoUrl && <Timeline video={video} videoRef={videoRef}/>}
 	</div>);
 };
