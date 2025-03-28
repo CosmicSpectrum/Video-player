@@ -1,0 +1,11 @@
+.volume {
+    display: flex;
+    max-width: 100px;
+    width: 100%;
+}
+
+.volume > img {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
