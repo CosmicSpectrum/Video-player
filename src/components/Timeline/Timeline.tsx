@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './Timeline.module.css';
 import {useExtractThumbnails} from '../../hooks/useExtractThumbnails.ts';
+import VideoCrop from '../VideoCrop/VideoCrop.tsx';
+import {useCropPlayback} from '../../hooks/useCropPlayback.ts';
 
 type Props = {
 	videoRef: React.RefObject<HTMLVideoElement | null>;
@@ -10,6 +12,9 @@ type Props = {
 const Timeline: React.FC<Props> = ({videoRef, video}) => {
 	const [duration, setDuration] = React.useState(0);
 	const [progress, setProgress] = React.useState(0);
+	const [cropStart, setCropStart] = React.useState<number>(0);
+	const [cropEnd, setCropEnd] = React.useState<number>(0);
+	useCropPlayback(videoRef, cropStart, cropEnd);
 	const thumbnails = useExtractThumbnails(video, 5);
 	const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -18,7 +23,15 @@ const Timeline: React.FC<Props> = ({videoRef, video}) => {
 		if (!video) return;
 
 		const update = () => setProgress(video.currentTime);
-		const setMeta = () => setDuration(video.duration);
+		const setMeta = () => {
+
+			// re-start the crop from the beginning of the video
+			setCropEnd(video.duration);
+			setCropStart(0);
+
+			// update the video duration
+			setDuration(video.duration);
+		};
 
 		video.addEventListener('timeupdate', update);
 		video.addEventListener('loadedmetadata', setMeta);
@@ -49,6 +62,11 @@ const Timeline: React.FC<Props> = ({videoRef, video}) => {
 		setProgress(newTime);
 	};
 
+	const handleCropChange = (start: number, end: number) => {
+		setCropStart(start);
+		setCropEnd(end);
+	};
+
 	// Update the playhead cursor position on the timeline
 	const progressPercent = (progress / duration) * 100 || 0;
 
@@ -66,6 +84,12 @@ const Timeline: React.FC<Props> = ({videoRef, video}) => {
 				{thumbnails.map((thumb) => (
 					<img key={thumb.time} src={thumb.url} alt={`Thumbnail at ${thumb.time}s`}/>))}
 			</div>
+			<VideoCrop
+				duration={duration}
+				cropStart={cropStart}
+				cropEnd={cropEnd}
+				updateCropState={handleCropChange}
+			/>
 		</div>
 	);
 };

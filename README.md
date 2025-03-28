@@ -37,6 +37,12 @@ The `PlayerControls` component includes various controls for the video player, s
 duration display. It receives the `videoRef` from the `VideoPlayer` component to interact with the video element
 directly.
 
+### Timeline
+
+The `Timeline` component displays the current playback time and allows the user to seek to a specific time in the video.
+It also utilizes the useExtractThumbnail hook to extract the thumbnail of the video at the current time to provide nicer
+UX for the user.
+
 ### Utility Functions
 
 The project includes utility functions, such as `formatTime`, to handle common tasks like formatting the time for
@@ -55,7 +61,7 @@ To run this project locally, follow these steps:
 
 1. **Clone the repository:**
    ```sh
-   git clone git@github.com:CosmicSpectrum/Video-player.git>
+   git clone git@github.com:CosmicSpectrum/Video-player.git
    cd ./Video-player
    ```
 

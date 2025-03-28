@@ -1,0 +1,25 @@
+.cropOverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: rgba(250, 204, 21, 0.3);
+    pointer-events: none;
+}
+
+.cropHandle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    background: #facc15;
+    cursor: ew-resize;
+    pointer-events: auto;
+}
+
+.start {
+    left: 0;
+}
+
+.end {
+    right: 0;
+}
