@@ -10,6 +10,8 @@ Generally, I went for as modular and contained as possible, I wanted to make sur
 self-contained as possible, and that the state was managed in a centralized manner to facilitate easy access and updates
 across different components.
 The only weak point of this design is the prop drilling of the video ref component that I personally don't like.
+Just a note, I should've use context to keep all video metadata shared between all components, I won't refactor due to
+time constraints.
 
 ### Volume Control
 

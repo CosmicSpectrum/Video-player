@@ -36,7 +36,7 @@ const VolumeController: React.FC<Props> = ({videoRef}) => {
 	};
 
 	const handleShowSlider = () => {
-		if (!videoRef.current) return;
+		if (!videoRef.current?.src) return;
 
 		setShowSlider(!showSlider);
 	};

@@ -19,7 +19,7 @@ const PlayerControls: React.FC<Props> = ({videoRef}) => {
 	 */
 	const handlePlayingClick = () => {
 		const video = videoRef.current;
-		if (!video) return;
+		if (!video?.src) return;
 		playing ? video.pause() : video.play();
 		setPlaying(!playing);
 	};
