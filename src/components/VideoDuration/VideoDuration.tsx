@@ -18,6 +18,7 @@ const VideoDuration: React.FC<Props> = ({videoRef}) => {
 		const updateDuration = () => setDuration(video.duration);
 
 		video.addEventListener('timeupdate', updateTime);
+		video.addEventListener('loadedmetadata', updateDuration);
 
 		// Run immediately if metadata already loaded
 		if (video.readyState >= 1) {
@@ -27,6 +28,7 @@ const VideoDuration: React.FC<Props> = ({videoRef}) => {
 
 		return () => {
 			video.removeEventListener('timeupdate', updateTime);
+			video.removeEventListener('loadedmetadata', updateDuration);
 		};
 	}, [videoRef.current]);
 
