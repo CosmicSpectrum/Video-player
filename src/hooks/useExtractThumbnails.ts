@@ -1,10 +1,18 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
 export type Thumbnail = {
 	time: number;
 	url: string;
 };
 
+/**
+ * Custom hook that will extract thumbnails from a video file.
+ * The hook will receive a file and a count of thumbnails to extract.
+ * The hook will iterate over a hidden video element and will seek to N intervals of the video duration
+ * then will draw each frame to a canvas and will provide a base64 url of the frame.
+ * @param file - The video file to iterate over
+ * @param count - The amount of frames to extract
+ */
 export function useExtractThumbnails(
 	file: File | null,
 	count: number = 10
@@ -37,7 +45,7 @@ export function useExtractThumbnails(
 						const time = i * interval;
 						await seekTo(video, time);
 						ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-						captures.push({ time, url: canvas.toDataURL('image/jpeg') });
+						captures.push({time, url: canvas.toDataURL('image/jpeg')});
 					}
 
 					setThumbnails(captures);
@@ -53,6 +61,12 @@ export function useExtractThumbnails(
 	return thumbnails;
 }
 
+/**
+ * Helper function that will receive a time and seek the video to that time.
+ * The function will set a new time to the video and wait for the seeked event to resolve.
+ * @param video - The video element ref
+ * @param time - The time to seek to
+ */
 function seekTo(video: HTMLVideoElement, time: number): Promise<void> {
 	return new Promise((resolve) => {
 		const handler = () => {
